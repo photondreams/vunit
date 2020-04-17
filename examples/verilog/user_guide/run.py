@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# Copyright (c) 2014-2019, Lars Asplund lars.anders.asplund@gmail.com
+# Copyright (c) 2014-2020, Lars Asplund lars.anders.asplund@gmail.com
 
 """
 SystemVerilog User Guide
@@ -12,14 +12,12 @@ The most minimal VUnit SystemVerilog project covering the basics of
 the :ref:`User Guide <user_guide>`.
 """
 
-from os.path import join, dirname
+from pathlib import Path
 from vunit.verilog import VUnit
 
-root = dirname(__file__)
+ROOT = Path(__file__).parent
 
-ui = VUnit.from_argv()
-lib = ui.add_library("lib")
-lib.add_source_files(join(root, "*.sv"))
+VU = VUnit.from_argv()
+VU.add_library("lib").add_source_files(ROOT / "*.sv")
 
-if __name__ == '__main__':
-    ui.main()
+VU.main()

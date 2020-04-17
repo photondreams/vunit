@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# Copyright (c) 2014-2019, Lars Asplund lars.anders.asplund@gmail.com
+# Copyright (c) 2014-2020, Lars Asplund lars.anders.asplund@gmail.com
 
 """
 Logging
@@ -11,12 +11,10 @@ Logging
 Demonstrates VUnit's support for logging.
 """
 
-from os.path import join, dirname
+from pathlib import Path
 from vunit import VUnit
 
-ui = VUnit.from_argv()
-lib = ui.add_library("lib")
-lib.add_source_files(join(dirname(__file__), "*.vhd"))
+VU = VUnit.from_argv()
+VU.add_library("lib").add_source_files(Path(__file__).parent / "*.vhd")
 
-if __name__ == '__main__':
-    ui.main()
+VU.main()

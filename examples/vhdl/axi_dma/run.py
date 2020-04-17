@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# Copyright (c) 2014-2019, Lars Asplund lars.anders.asplund@gmail.com
+# Copyright (c) 2014-2020, Lars Asplund lars.anders.asplund@gmail.com
 
 """
 AXI DMA
@@ -15,18 +15,17 @@ external memory. The AXI DMA also has a control register interface
 via AXI-lite.
 """
 
-from os.path import join, dirname
+from pathlib import Path
 from vunit import VUnit
 
-ui = VUnit.from_argv()
-ui.add_osvvm()
-ui.add_verification_components()
+VU = VUnit.from_argv()
+VU.add_osvvm()
+VU.add_verification_components()
 
-src_path = join(dirname(__file__), "src")
+SRC_PATH = Path(__file__).parent / "src"
 
-axi_dma_lib = ui.add_library("axi_dma_lib")
-axi_dma_lib.add_source_files(join(src_path, "*.vhd"))
-axi_dma_lib.add_source_files(join(src_path, "test", "*.vhd"))
+VU.add_library("axi_dma_lib").add_source_files(
+    [SRC_PATH / "*.vhd", SRC_PATH / "test" / "*.vhd"]
+)
 
-if __name__ == '__main__':
-    ui.main()
+VU.main()

@@ -2,7 +2,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this file,
 # You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# Copyright (c) 2014-2019, Lars Asplund lars.anders.asplund@gmail.com
+# Copyright (c) 2014-2020, Lars Asplund lars.anders.asplund@gmail.com
 
 """
 Run
@@ -11,16 +11,17 @@ Run
 Demonstrates the VUnit run library.
 """
 
-from os.path import join, dirname
+from pathlib import Path
 from vunit import VUnit
 
-root = dirname(__file__)
+ROOT = Path(__file__).parent
 
-ui = VUnit.from_argv()
-lib = ui.add_library("lib")
-lib.add_source_files(join(root, "*.vhd"))
-tb_with_lower_level_control = lib.entity("tb_with_lower_level_control")
-tb_with_lower_level_control.scan_tests_from_file(join(root, "test_control.vhd"))
+VU = VUnit.from_argv()
 
-if __name__ == '__main__':
-    ui.main()
+LIB = VU.add_library("lib")
+LIB.add_source_files(ROOT / "*.vhd")
+LIB.entity("tb_with_lower_level_control").scan_tests_from_file(
+    ROOT / "test_control.vhd"
+)
+
+VU.main()
